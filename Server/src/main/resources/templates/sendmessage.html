@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новое сообщение</title>
+    <link rel="stylesheet" href="@{css/stylesheet.css}">
+</head>
+<body>
+<div class="modal">
+    <div class="modal-header">
+        <h2>Новое сообщение</h2>
+        <button class="close-button">&times;</button>
+    </div>
+    <div class="modal-body">
+        <label for="recipient">Кому:</label>
+        <input type="text" id="recipient" class="input-field">
+
+        <label for="message">Сообщение:</label>
+        <textarea id="message" class="textarea-field" rows="4"></textarea>
+    </div>
+    <div class="modal-footer">
+        <button class="send-button">Отправить</button>
+    </div>
+</div>
+</body>
+</html>
