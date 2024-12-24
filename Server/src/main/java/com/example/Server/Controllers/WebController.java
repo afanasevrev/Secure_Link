@@ -2,7 +2,6 @@ package com.example.Server.Controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-
 /**
  * Обработка запросов от клиентов
  */
