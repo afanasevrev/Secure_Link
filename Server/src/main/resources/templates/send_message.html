@@ -15,13 +15,57 @@
     <div class="modal-body">
         <label for="recipient">Кому:</label>
         <input type="text" id="recipient" class="input-field">
-
         <label for="message">Сообщение:</label>
         <textarea id="message" class="textarea-field" rows="4"></textarea>
     </div>
     <div class="modal-footer">
-        <button class="send-button">Отправить</button>
+        <button class="send-button" id="send-button">Отправить</button>
     </div>
 </div>
+
+<script>
+        // Обработчик нажатия на кнопку "Отправить"
+        document.getElementById('send-button').addEventListener('click', function () {
+            // Получаем данные из полей
+            const recipient = document.getElementById('recipient').value;
+            const message = document.getElementById('message').value;
+
+            // Проверяем, что оба поля заполнены
+            if (!recipient || !message) {
+                alert('Пожалуйста, заполните все поля!');
+                return;
+            }
+
+            // Подготавливаем данные для отправки
+            const data = {
+                recipient: recipient,
+                message: message
+            };
+
+            // Отправляем POST-запрос
+            fetch('http://localhost:8080/sendMessage', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', // Данные отправляются в формате JSON
+                },
+                body: JSON.stringify(data) // Преобразуем объект в строку JSON
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Если запрос успешен
+                    alert('Сообщение успешно отправлено!');
+                } else {
+                    // Если запрос не успешен
+                    alert('Ошибка при отправке сообщения.');
+                }
+            })
+            .catch(error => {
+                // Обработка ошибок
+                console.error('Произошла ошибка:', error);
+                alert('Не удалось отправить сообщение.');
+            });
+        });
+    </script>
 </body>
 </html>
+
