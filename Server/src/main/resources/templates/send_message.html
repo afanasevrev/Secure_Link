@@ -7,7 +7,7 @@
     <link type="text/css" rel="stylesheet" th:href="@{css/stylesheet.css}">
 </head>
 <body>
-<div class="modal">
+<div class="modal" th:action="@{/sendMessage}" th:object="${sendMessage}" method="post">
     <div class="modal-header">
         <h2>Новое сообщение</h2>
         <button class="close-button">&times;</button>
