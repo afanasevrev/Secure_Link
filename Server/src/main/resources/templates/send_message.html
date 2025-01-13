@@ -7,21 +7,25 @@
     <link type="text/css" rel="stylesheet" th:href="@{css/stylesheet.css}">
 </head>
 <body>
-<div class="modal" th:action="@{/sendMessage}" th:object="${sendMessage}" method="post">
-    <div class="modal-header">
-        <h2>Новое сообщение</h2>
-        <button class="close-button">&times;</button>
-    </div>
-    <div class="modal-body">
-        <label for="recipient">Кому:</label>
-        <input type="text" id="recipient" class="input-field">
-        <label for="message">Сообщение:</label>
-        <textarea id="message" class="textarea-field" rows="4"></textarea>
-    </div>
-    <div class="modal-footer">
-        <button class="send-button" id="send-button">Отправить</button>
-    </div>
+<div class="modal">
+    <form th:action="@{/sendMessage}" th:object="${sendMessage}" method="post">
+        <div class="modal-header">
+            <h2>Новое сообщение</h2>
+            <button type="button" class="close-button">&times;</button>
+        </div>
+        <div class="modal-body">
+            <label for="recipient">Кому:</label>
+            <input type="text" id="recipient" class="input-field" th:field="*{recipient}" required>
+
+            <label for="message">Сообщение:</label>
+            <textarea id="message" class="textarea-field" rows="4" th:field="*{message}" required></textarea>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="send-button" id="send-button">Отправить</button>
+        </div>
+    </form>
 </div>
 </body>
 </html>
+
 

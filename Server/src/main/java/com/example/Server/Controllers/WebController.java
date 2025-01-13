@@ -1,5 +1,6 @@
 package com.example.Server.Controllers;
 
+import com.example.Server.MessageForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,11 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class WebController {
     @GetMapping("/sendMessage")
-    private String sendMessage() {
+    private String sendMessage(Model model) {
+        model.addAttribute("sendMessage", new MessageForm());
         return "send_message";
     }
     @PostMapping("/sendMessage")
-    private String sendMessage(Model model) {
+    private String sendMessage() {
         System.out.println("Получено сообщение");
         return "Получено Post - сообщение";
     }
