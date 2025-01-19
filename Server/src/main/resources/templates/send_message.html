@@ -8,10 +8,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script>
         function encryptMessage() {
-            var secretKey = 'Bastard'; // Используйте безопасный способ хранения ключа
+            var secretKey = 'Bastard';
             var messageField = document.getElementById('message');
             var encryptedMessage = CryptoJS.AES.encrypt(messageField.value, secretKey).toString();
-            messageField.value = encryptedMessage; // Заменяем значение поля шифрованным текстом
+            messageField.value = encryptedMessage;
         }
     </script>
 </head>
