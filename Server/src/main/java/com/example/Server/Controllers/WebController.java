@@ -1,5 +1,6 @@
 package com.example.Server.Controllers;
 
+import com.example.Server.AESUtil;
 import com.example.Server.MessageForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class WebController {
+    private String secretKey = "lkabnmqwertyuiosgdfhjkqwerafsvxb";
     @GetMapping("/sendMessage")
     private String sendMessage(Model model) {
         model.addAttribute("sendMessage", new MessageForm());
@@ -19,7 +21,9 @@ public class WebController {
     @PostMapping("/sendMessage")
     private String sendMessage(@ModelAttribute MessageForm messageForm, Model model) {
         model.addAttribute("sendMessage", messageForm);
-        System.out.println("Posted message " + messageForm.getMessage());
+        String decryptedMessage = AESUtil.decrypt(messageForm.getMessage(), secretKey);
+        System.out.println("Posted message: " + messageForm.getMessage());
+        System.out.println("Posted decrypted message: " + decryptedMessage);
         model.addAttribute("sendMessage", new MessageForm());
         return "send_message";
     }
