@@ -22,6 +22,7 @@ public class WebController {
     private String sendMessage(@ModelAttribute MessageForm messageForm, Model model) {
         model.addAttribute("sendMessage", messageForm);
         System.out.println("Posted message " + messageForm.getMessage());
+        model.addAttribute("sendMessage", new MessageForm());
         return "send_message";
     }
 }

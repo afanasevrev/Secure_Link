@@ -5,40 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Новое сообщение</title>
     <link type="text/css" rel="stylesheet" th:href="@{css/stylesheet.css}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script>
-        function encryptMessage(event) {
-            event.preventDefault(); // предотвратить отправку формы
-
-            const recipient = document.getElementById("recipient").value;
-            const message = document.getElementById("message").value;
-            const secretKey = "your-secret-key"; // Придумайте свое значение ключа
-
-            // Шифрование сообщения
-            const encryptedMessage = CryptoJS.AES.encrypt(message, secretKey).toString();
-
-            // Создание скрытого поля для отправки зашифрованного сообщения
-            const form = event.target; // форма, которая была отправлена
-            const encryptedMessageInput = document.createElement("input");
-            encryptedMessageInput.type = "hidden";
-            encryptedMessageInput.name = "encryptedMessage"; // имя поля, которое вы будете использовать на сервере
-            encryptedMessageInput.value = encryptedMessage;
-
-            // Удаление старого поля сообщения, если оно есть
-            const messageInput = form.querySelector("textarea[id='message']");
-            form.removeChild(messageInput);
-
-            // Добавление зашифрованного сообщения в форму
-            form.appendChild(encryptedMessageInput);
-
-            // Отправка формы
-            form.submit();
+        function encryptMessage() {
+            var secretKey = 'Bastard'; // Используйте безопасный способ хранения ключа
+            var messageField = document.getElementById('message');
+            var encryptedMessage = CryptoJS.AES.encrypt(messageField.value, secretKey).toString();
+            messageField.value = encryptedMessage; // Заменяем значение поля шифрованным текстом
         }
     </script>
 </head>
 <body>
 <div class="modal">
-    <form th:action="@{/sendMessage}" th:object="${sendMessage}" method="post" onsubmit="encryptMessage(event)">
+    <form th:action="@{/sendMessage}" th:object="${sendMessage}" method="post" onsubmit="encryptMessage()">
         <div class="modal-header">
             <h2>Новое сообщение</h2>
             <button type="button" class="close-button">&times;</button>
@@ -47,7 +26,7 @@
             <label for="recipient">Кому:</label>
             <input type="text" id="recipient" class="input-field" th:field="*{recipient}" required>
             <label for="message">Сообщение:</label>
-            <textarea id="message" class="textarea-field" rows="4" required></textarea>
+            <textarea id="message" class="textarea-field" rows="4" th:field="*{message}" required></textarea>
         </div>
         <div class="modal-footer">
             <button type="submit" class="send-button" id="send-button">Отправить</button>
@@ -56,6 +35,3 @@
 </div>
 </body>
 </html>
-
-
-
