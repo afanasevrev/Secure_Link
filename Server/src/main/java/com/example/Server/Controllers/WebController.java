@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class WebController {
-    private String secretKey = "lkabnmqwertyuiosgdfhjkqwerafsvxb";
+    private String secretKey = "404297cd82ed1c16f1533bf2bf744fc1";
     @GetMapping("/sendMessage")
     private String sendMessage(Model model) {
         model.addAttribute("sendMessage", new MessageForm());
