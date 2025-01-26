@@ -1,6 +1,7 @@
 package com.example.Server.Controllers;
 
 import com.example.Server.AESUtil;
+import com.example.Server.GetMessage;
 import com.example.Server.MessageForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class WebController {
     private String secretKey = "404297cd82ed1c16f1533bf2bf744fc1";
+    @GetMapping("/")
+    private String sendMessageEtc(Model model) {
+        sendMessage(model);
+        return "send_message";
+    }
     @GetMapping("/sendMessage")
     private String sendMessage(Model model) {
         model.addAttribute("sendMessage", new MessageForm());
@@ -26,5 +32,10 @@ public class WebController {
         System.out.println("Posted decrypted message: " + decryptedMessage);
         model.addAttribute("sendMessage", new MessageForm());
         return "send_message";
+    }
+    @GetMapping("/getMessage")
+    private String getMessage(Model model) {
+        model.addAttribute("getMessage", new GetMessage());
+        return "get_message";
     }
 }
