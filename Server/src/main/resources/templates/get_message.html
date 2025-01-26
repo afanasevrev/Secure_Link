@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новое сообщение</title>
+    <link type="text/css" rel="stylesheet" th:href="@{css/stylesheet.css}">
+</head>
+<body>
+<div class="modal">
+    <form th:action="@{/getMessage}" th:object="${getMessage}" method="post" onsubmit="encryptMessage()">
+        <div class="modal-header">
+            <h2>Новое сообщение</h2>
+            <button type="button" class="close-button">&times;</button>
+        </div>
+        <div class="modal-body">
+            <label for="encryptionKey">Введите ключ шифрования:</label>
+            <input type="text" id="encryptionKey" class="input-field" th:field="*{recipient}" required>
+
+            <label for="message">Сообщение:</label>
+            <textarea id="message" class="textarea-field" rows="4" th:field="*{message}" required></textarea>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="send-button" id="send-button">Получить сообщение</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
