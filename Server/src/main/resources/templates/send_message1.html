@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новое сообщение</title>
+    <link type="text/css" rel="stylesheet" th:href="@{css/stylesheet.css}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script>
+    function encryptMessage() {
+        var secretKey = CryptoJS.enc.Hex.parse('404297cd82ed1c16f1533bf2bf744fc1'); // Конвертация из hex в WordArray
+        var messageField = document.getElementById('message');
+
+        // Добавление случайного IV для безопасности
+        var iv = CryptoJS.lib.WordArray.random(16);
+        var encryptedMessage = CryptoJS.AES.encrypt(messageField.value, secretKey, {
+            iv: iv,
+            padding: CryptoJS.pad.Pkcs7
+        });
+
+        // Кодирование сообщения и IV в Base64
+        var ivAndMessage = iv.concat(encryptedMessage.ciphertext);
+        messageField.value = CryptoJS.enc.Base64.stringify(ivAndMessage);
+    }
+</script>
+
+</head>
+<body>
+<div class="modal">
+    <form th:action="@{/sendMessage}" th:object="${sendMessage}" method="post" onsubmit="encryptMessage()">
+        <div class="modal-header">
+            <h2>Новое сообщение</h2>
+            <button type="button" class="close-button">&times;</button>
+        </div>
+        <div class="modal-body">
+            <label for="recipient">Введите ключ:</label>
+            <input type="text" id="recipient" class="input-field" th:field="*{recipient}" required>
+            <label for="message">Сообщение:</label>
+            <textarea id="message" class="textarea-field" rows="4" th:field="*{message}" required></textarea>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="send-button" id="send-button">Отправить</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
