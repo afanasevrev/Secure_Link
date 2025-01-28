@@ -3,6 +3,9 @@ package com.example.Server.Controllers;
 import com.example.Server.AESUtil;
 import com.example.Server.GetMessage;
 import com.example.Server.MessageForm;
+import com.example.Server.db.MessageEntity;
+import com.example.Server.db.MessageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class WebController {
+    @Autowired
+    private MessageService messageService;
     private String secretKey = "404297cd82ed1c16f1533bf2bf744fc1";
     @GetMapping("/")
     private String sendMessageEtc(Model model) {
