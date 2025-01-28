@@ -7,4 +7,5 @@ public interface MessageService {
     List<MessageEntity> readMessages();
     MessageEntity readMessage(Long id);
     String deleteMessage(Long id);
+    String updateMessage(MessageEntity entity, Long id);
 }
