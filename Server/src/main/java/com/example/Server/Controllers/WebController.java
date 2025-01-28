@@ -43,4 +43,11 @@ public class WebController {
         model.addAttribute("getMessage", new GetMessage());
         return "get_message";
     }
+    @PostMapping("/getMessage")
+    private String getMessage(@ModelAttribute MessageForm messageForm, Model model) {
+        model.addAttribute("getMessage", messageForm);
+        String decryptedMessage = AESUtil.decrypt(messageForm.getMessage(), secretKey);
+        model.addAttribute("getMessage", new MessageForm());
+        return "get_message";
+    }
 }
