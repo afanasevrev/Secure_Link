@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class WebController {
+    private MessageEntity messageEntity = new MessageEntity();
     @Autowired
     private MessageService messageService;
     private String secretKey = "404297cd82ed1c16f1533bf2bf744fc1";
@@ -32,9 +33,11 @@ public class WebController {
     @PostMapping("/sendMessage")
     private String sendMessage(@ModelAttribute MessageForm messageForm, Model model) {
         model.addAttribute("sendMessage", messageForm);
-        String decryptedMessage = AESUtil.decrypt(messageForm.getMessage(), secretKey);
-        System.out.println("Posted message: " + messageForm.getMessage());
-        System.out.println("Posted decrypted message: " + decryptedMessage);
+        //String decryptedMessage = AESUtil.decrypt(messageForm.getMessage(), messageForm.getRecipient());
+        //System.out.println("Posted message: " + messageForm.getMessage());
+        //System.out.println("Posted decrypted message: " + decryptedMessage);
+        messageEntity.setMessage(messageForm.getMessage());
+        messageService.updateMessage(messageEntity, 1L);
         model.addAttribute("sendMessage", new MessageForm());
         return "send_message";
     }
@@ -46,8 +49,8 @@ public class WebController {
     @PostMapping("/getMessage")
     private String getMessage(@ModelAttribute MessageForm messageForm, Model model) {
         model.addAttribute("getMessage", messageForm);
-        String decryptedMessage = AESUtil.decrypt(messageForm.getMessage(), secretKey);
-        model.addAttribute("getMessage", new MessageForm());
+        String decryptedMessage = AESUtil.decrypt(messageForm.getMessage(), messageForm.getRecipient());
+        model.addAttribute("getMessage", new MessageForm(decryptedMessage));
         return "get_message";
     }
 }
