@@ -49,7 +49,7 @@ public class WebController {
     @PostMapping("/getMessage")
     private String getMessage(@ModelAttribute MessageForm messageForm, Model model) {
         model.addAttribute("getMessage", messageForm);
-        String decryptedMessage = AESUtil.decrypt(messageForm.getMessage(), messageForm.getRecipient());
+        String decryptedMessage = AESUtil.decrypt(messageService.readMessage(1L).getMessage(), messageForm.getRecipient());
         model.addAttribute("getMessage", new MessageForm(decryptedMessage));
         return "get_message";
     }
